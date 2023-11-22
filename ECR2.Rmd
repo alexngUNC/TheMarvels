@@ -1,0 +1,108 @@
+---
+title: "ECR2"
+output:
+  pdf_document: default
+  html_document: default
+date: "2023-11-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rmarkdown)
+library(tinytex)
+library(knitr)
+library(mosaic)
+library(readr)
+library(leaps)
+library(dplyr)
+library(car)
+```
+
+## Data
+
+```{r}
+marveldata= read.csv("marveldata.csv")
+str(marveldata)
+```
+## Descriptive stats
+``` {r}
+summary(marveldata)
+summary(marveldata$opengross/1000000)
+```
+
+## Filter Data
+
+```{r}
+low_openers <- subset(marveldata, opengross<100)
+marveldata %>% filter(opengross < 100)
+```
+
+## Model Building
+
+```{r}
+fullmod <- lm(totalgross~opengross, data=marveldata)
+summary(fullmod)
+
+lowmod <- lm(totalgross~opengross, data=low_openers)
+summary(lowmod)
+
+```
+For each dollar increase in open gross, total gross is expected to increase by approx. 2.60 dollars, holding other factors constant
+## Prediction
+
+```{r}
+predict(fullmod, newdata = data.frame(opengross=46), interval = "confidence")
+predict(fullmod, newdata = data.frame(opengross=46), interval = "prediction")
+
+
+predict(lowmod, newdata = data.frame(opengross=46), interval = "confidence")
+predict(lowmod, newdata = data.frame(opengross=46), interval = "prediction")
+
+```
+
+## Model Evaluation
+
+```{r}
+#Training and Testing Split
+TRAIN <- subset(marveldata, perform == "LP")
+TEST <- subset(marveldata, perform == "HP")
+TRAIN$school <- NULL
+TEST$school <- NULL
+head(TRAIN)
+head(TEST)
+
+
+mod <- lm(totalgross~opengross, data=TRAIN)
+predictions <- predict(mod,TEST)
+
+#Residual Analysis
+residuals <- test_data$totalgross - predictions
+plot(residuals)
+
+#R-squared and Adjusted R-squared
+summary(mod)$r.squared
+summary(mod)$adj.r.squared
+
+#MSE and RMSE
+mse <- mean(residuals^2)
+rmse <- sqrt(mse)
+mse
+rmse
+
+
+```
+
+#Assumptions Check
+
+```{r}
+#Linearity/Homoscedasticity
+plot(mod$fitted.values,residuals)
+abline(h=0,col="red")
+#Independence?
+
+#Normal Distribution of Errors
+qqnorm(residuals)
+qqline(residuals,col="red")
+
+```
+
