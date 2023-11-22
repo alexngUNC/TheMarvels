@@ -1,0 +1,153 @@
+---
+title: 'STOR 455 Group Project (Due 5pm on November 24th)'
+subtitle: "Old Geezers"
+output:
+  pdf_document: default
+---
+
+Hunter Buresh (), Alex Georgiev (730483404), Zach Richardson ()
+
+# The Prediction (Required)
+Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is ...
+
+# Summary of Justification (Required) 
+
+
+# Data (Required)
+We obtained the dataset from: <FILL IN URL HERE>.
+### Preview of dataset
+``` {r}
+data <- read.csv("marveldata.csv", quote="'")
+summary(data)
+head(data, 5)
+
+# We don't need the id, distributor, title, or date columns
+modelData <- subset(data, select = -c(id, distributer, title, date))
+summary(modelData)
+```
+
+
+# Analysis (Required)
+We noticed that the opening gross for The Marvels was only $46 million. Looking at the distrbution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset.
+### Distribution of opening gross
+``` {r}
+openGrossMil <- data$opengross/1000000
+summary(openGrossMil)
+```
+
+### Full model
+``` {r}
+# Fit a model with all data
+fullModel = lm(totalgross~opengross, data=modelData)
+summary(fullModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=modelData)
+abline(fullModel)
+```
+
+### Model with low opening gross
+``` {r}
+# Get data with opening gross < 100 mil
+lowOpeners = subset(modelData, opengross<=100000000)
+
+# Fit model with low openers
+lowOpenModel = lm(totalgross~opengross, data=lowOpeners)
+summary(lowOpenModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=lowOpeners)
+abline(lowOpenModel)
+```
+
+### Model with only Fall releases
+``` {r}
+# Only take movies that had fall releases
+fallData = subset(modelData, season=="Fall")
+summary(fallData)
+head(modelData)
+
+# Fit model with fall releases
+fallModel = lm(totalgross~opengross, data=fallData)
+summary(fallModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=fallData)
+abline(fallModel)
+```
+
+### Table with prediction from all models
+``` {r}
+# Get The Marvels opening gross
+theMarvelsOpenGross = data.frame(opengross=(subset(data, title=="The Marvels"))$opengross)
+
+# Predictions for each model
+fullPred = predict(fullModel, newdata = theMarvelsOpenGross)
+lowOpenPred = predict(lowOpenModel, newdata = theMarvelsOpenGross)
+fallPred = predict(fallModel, newdata = theMarvelsOpenGross)
+
+# Create a data frame for the table
+predictionTable <- data.frame(
+  FullModel = fullPred,
+  LowOpenModel = lowOpenPred,
+  FallModel = fallPred
+)
+
+# Display the table
+print(predictionTable)
+```
+
+
+## Predict only with daily earnings
+``` {r}
+# Convert table from website into dataframe
+dailyEarnings <- data.frame(
+  Date = c("Nov 20", "Nov 19", "Nov 18", "Nov 17", "Nov 16", "Nov 15", "Nov 14", "Nov 13", "Nov 12", "Nov 11", "Nov 10"),
+  Day = c("Monday", "Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday", "Sunday", "Saturday", "Friday"),
+  Rank = c(4, 3, 3, 4, 1, 1, 1, 1, 1, 1, 1),
+  Revenue = c(1137196, 2910248, 4453682, 2756659, 1251387, 1789239, 3300946, 2372375, 9247703, 15260052, 21603104),
+  Change_Daily = c("-60.9%", "-34.7%", "+61.6%", "+120.3%", "-30.1%", "-45.8%", "+39.1%", "-74.3%", "-39.4%", "-29.4%", "-"),
+  Change_LastWeek = c("-52.1%", "-68.5%", "-70.8%", "-87.2%", "-", "-", "-", "-", "-", "-", "-"),
+  Theaters = c(4030, 4030, 4030, 4030, 4030, 4030, 4030, 4030, 4030, 4030, 4030),
+  Avg = c(282, 722, 1105, 684, 310, 443, 819, 588, 2294, 3786, 5360),
+  TotalRevenue = c(66082591, 64945395, 62035147, 57581465, 54824806, 53573419, 51784180, 48483234, 46110859, 36863156, 21603104),
+  Week = c(11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+)
+
+# Print the data frame
+print(rowList)
+
+# Preview data
+summary(dailyEarnings)
+head(dailyEarnings)
+```
+
+### SLR based on earnings since Nov 12
+``` {r}
+# Data that only contains Nov 12 and later
+sinceNov12 = subset(dailyEarnings, (Date != "Nov 10") & (Date != "Nov 11")) 
+
+# Add column that represents days since Nov 12
+sinceNov12$DaysAfterOpeningWknd <- c(8, 7, 6, 5, 4, 3, 2, 1, 0)
+
+# Show data
+summary(sinceNov12)
+sinceNov12
+
+# Fit model passed on days since opening weekend
+sinceNov12Model = lm(TotalRevenue~DaysAfterOpeningWknd, data=sinceNov12)
+
+# Summarize model
+summary(sinceNov12Model)
+
+# Convert to millions for easier viewing
+plotData = sinceNov12
+plotData$TotalRevenue = plotData$TotalRevenue / 1000000
+
+# Plot regression line
+milModel = lm(TotalRevenue~DaysAfterOpeningWknd, data=plotData)
+plot(TotalRevenue~DaysAfterOpeningWknd, data=plotData, yaxp=c(40,70,5), ylim=c(40, 70),
+     main="Revenue Since Opening Weekend", xlab="Days Since Opening Weekend", ylab="Total Revenue")
+abline(milModel)
+```
+
