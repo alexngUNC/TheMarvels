@@ -1,0 +1,98 @@
+---
+title: 'STOR 455 Group Project (Due 5pm on November 24th)'
+subtitle: "Old Geezers"
+output:
+  pdf_document: default
+---
+
+Hunter Buresh (), Alex Georgiev (730483404), Zach Richardson ()
+
+# The Prediction (Required)
+Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is ...
+
+# Summary of Justification (Required) 
+
+
+# Data (Required)
+We obtained the dataset from: <FILL IN URL HERE>.
+### Preview of dataset
+``` {r}
+data <- read.csv("marveldata.csv", quote="'")
+summary(data)
+head(data, 5)
+
+# We don't need the id, distributor, title, or date columns
+modelData <- subset(data, select = -c(id, distributer, title, date))
+summary(modelData)
+```
+
+
+# Analysis (Required)
+We noticed that the opening gross for The Marvels was only $46 million. Looking at the distrbution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset.
+### Distribution of opening gross
+``` {r}
+openGrossMil <- data$opengross/1000000
+summary(openGrossMil)
+```
+
+### Full model
+``` {r}
+# Fit a model with all data
+fullModel = lm(totalgross~opengross, data=modelData)
+summary(fullModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=modelData)
+abline(fullModel)
+```
+
+### Model with low opening gross
+``` {r}
+# Get data with opening gross < 100 mil
+lowOpeners = subset(modelData, opengross<=100000000)
+
+# Fit model with low openers
+lowOpenModel = lm(totalgross~opengross, data=lowOpeners)
+summary(lowOpenModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=lowOpeners)
+abline(lowOpenModel)
+```
+
+### Model with only Fall releases
+``` {r}
+# Only take movies that had fall releases
+fallData = subset(modelData, season=="Fall")
+summary(fallData)
+head(modelData)
+
+# Fit model with fall releases
+fallModel = lm(totalgross~opengross, data=fallData)
+summary(fallModel)
+
+# Plot regression line
+plot(totalgross~opengross, data=fallData)
+abline(fallModel)
+```
+
+### Table with prediction from all models
+``` {r}
+# Get The Marvels opening gross
+theMarvelsOpenGross = data.frame(opengross=(subset(data, title=="The Marvels"))$opengross)
+
+# Predictions for each model
+fullPred = predict(fullModel, newdata = theMarvelsOpenGross)
+lowOpenPred = predict(lowOpenModel, newdata = theMarvelsOpenGross)
+fallPred = predict(fallModel, newdata = theMarvelsOpenGross)
+
+# Create a data frame for the table
+predictionTable <- data.frame(
+  FullModel = fullPred,
+  LowOpenModel = lowOpenPred,
+  FallModel = fallPred
+)
+
+# Display the table
+print(predictionTable)
+```

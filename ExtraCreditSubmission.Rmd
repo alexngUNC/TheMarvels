@@ -5,16 +5,17 @@ output:
   pdf_document: default
 ---
 
-Hunter Buresh (), Alex Georgiev (730483404), Zach Richardson ()
+Hunter Buresh (730481420), Alex Georgiev (730483404), Zach Richardson (730408740)
 
 # The Prediction (Required)
-Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is ...
+Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is \$104,112,752.
 
 # Summary of Justification (Required) 
-
+Our prediction of \$104,112,752 million dollars for the cumulative domestic box office of The Marvels by December 8, 2023, was derived by investigating several linear regression models. Initially, we analyzed the historical data of Marvel movies, particularly noting the low opening gross of The Marvels. We developed three linear regression models based on this dataset: one considering all movies, another focusing specifically on those with lower opening grosses ($\leq$ \$100 Million), and a third for films released in the fall season. Alongside this, we also built a fourth model based on daily earnings data since November 12. This model was trained on live daily data from the Box Office Mojo website. The reason why we chose Nov 12 is because the movie was released on Nov 10, so the increase in earnings between Nov 10 and Nov 12 was nonlinear. Therefore, we chose Nov 12 because it was the earnings after the opening weekend, so the earnings started to follow a more linear trend after that. This model was crucial for capturing the real-time market response and audience trends, providing a contemporary perspective to our analysis. We decided to solely rely on this model for our final prediction because The Marvels had the lowest opening gross earnings out of all of the Marvel movies in the previous dataset we used, which put it around 1.23 standard deviations below the mean. Not only that, but the standard deviation of opening gross earnings was around \$70 million, which is almost double the opening gross of The Marvels, so The Marvels was pretty far from the average opening gross earnings. This means that it doesn't make sense to build a model based on Marvel movies that were so much more successful than The Marvels. We also needed to make sure that our model predicted exactly for December 8 (26 days after the movie was released) and we can't guarantee that the total gross earnings from the other dataset was exactly 26 days after the movie was released. We believe that only using past earnings for The Marvels is the most reflective of the movie's current trajectory.
 
 # Data (Required)
-We obtained the dataset from: <FILL IN URL HERE>.
+We created the marveldata.csv dataset in Excel by using the table from: (https://www.boxofficemojo.com/franchise/fr541495045/). The data has the opening gross and total gross earnings for 33 Marvel movies.
+
 ### Preview of dataset
 ``` {r}
 data <- read.csv("marveldata.csv", quote="'")
@@ -26,13 +27,63 @@ modelData <- subset(data, select = -c(id, distributer, title, date))
 summary(modelData)
 ```
 
+### Daily earnings dataset
+This dataset was put together from the table found at (https://www.boxofficemojo.com/release/rl247366145/?ref_=bo_tt_gr_1). It has the to-date revenue of The Marvels from Nov 10 (release) to Nov 22. We believe that it's more accurate to build a model around past data of The Marvels rather than combining data from many movies that did not follow a similar earnings trend.
+``` {r}
+# Convert table from website into dataframe
+dailyEarnings <- data.frame(
+  Date = c("Nov 22", "Nov 21", "Nov 20", "Nov 19", 
+           "Nov 18", "Nov 17", "Nov 16", "Nov 15", "Nov 14", 
+           "Nov 13", "Nov 12", "Nov 11", "Nov 10"),
+  DayOfWeek = c("Wednesday", "Tuesday", "Monday", "Sunday", 
+                "Saturday", "Friday", "Thursday", "Wednesday", 
+                "Tuesday", "Monday", "Sunday", "Saturday", "Friday"),
+  Rank = c(5, 3, 4, 3, 3, 4, 1, 1, 1, 1, 1, 1, 1),
+  Revenue = c(1500000, 1570855, 1137196, 2910248, 4453682, 
+              2756659, 1251387, 1789239, 3300946, 2372375, 
+              9247703, 15260052, 21603104),
+  Change_Daily = c("-4.5%", "+38.1%", "-60.9%", "-34.7%", 
+                   "+61.6%", "+120.3%", "-30.1%", "-45.8%", 
+                   "+39.1%", "-74.3%", "-39.4%", "-29.4%", "-"),
+  Change_LastWeek = c("-16.2%", "-52.4%", "-52.1%", 
+                      "-68.5%", "-70.8%", "-87.2%", 
+                      "-", "-", "-", "-", "-", "-", "-"),
+  Theaters = c(3070, 4030, 4030, 4030, 4030, 4030, 4030, 
+               4030, 4030, 4030, 4030, 4030, 4030),
+  Avg = c(488, 389, 282, 722, 1105, 684, 310, 443, 819, 
+          588, 2294, 3786, 5360),
+  TotalRevenue = c(69153446, 67653446, 66082591, 64945395, 
+                   62035147, 57581465, 54824806, 53573419, 
+                   51784180, 48483234, 46110859, 36863156, 21603104),
+  Day = c(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+)
+
+# Preview data
+summary(dailyEarnings)
+head(dailyEarnings)
+```
+
 
 # Analysis (Required)
-We noticed that the opening gross for The Marvels was only $46 million. Looking at the distrbution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset.
+We noticed that the opening gross for The Marvels was only \$46 million. Looking at the distribution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset. We found that The Marvels was around 1.23 standard deviations below the mean. The standard deviation was around \$70 million, which is almost double the opening gross of The Marvels. This means that The Marvels was pretty far from the average opening gross of other Marvel movies. This is why the prediction from the model with all Marvel movies is too optimistic. We decided to train a model based on Movies that had low opening weekend earnings to better reflect the performance of The Marvels, and a model that only contained movies with fall releases. The problem with these models is that we can't guarrantee the period of time between the movie's release and the gross earnings that we're predicting for is the same 26 days after release that we're predicting for The Marvels. However, these models still gave us ballpark figures to compare our final daily earnings model against. Our final prediction was pretty close to the model with only fall releases. All models showed that it makes sense to predict future gross earnings based on the opening gross earnings because of the clear linear relationship between the two showcased by the plots with the regression lines.
+
 ### Distribution of opening gross
 ``` {r}
 openGrossMil <- data$opengross/1000000
 summary(openGrossMil)
+
+# Find std dev and mean of opening gross
+oneStd = sd(data$opengross)
+cat("One standard deviation:",oneStd, "\n")
+meanOpenGross = mean(data$opengross)
+cat("Mean of opening gross: ", meanOpenGross, "\n")
+
+# Get The Marvels opening gross
+theMarvelsOpenGross = data.frame(opengross=(subset(data, title=="The Marvels"))$opengross)
+theMarvelsOpenGrossNum = theMarvelsOpenGross$opengross
+# Find standard deviations below the mean The Marvels was
+numBelowMean = (meanOpenGross - theMarvelsOpenGrossNum) / oneStd
+cat("Number of Std Devs The Marvels is below the mean: ", numBelowMean, "\n")
 ```
 
 ### Full model
@@ -42,7 +93,8 @@ fullModel = lm(totalgross~opengross, data=modelData)
 summary(fullModel)
 
 # Plot regression line
-plot(totalgross~opengross, data=modelData)
+plot(totalgross~opengross, data=modelData, 
+     main="Full Model")
 abline(fullModel)
 ```
 
@@ -56,11 +108,12 @@ lowOpenModel = lm(totalgross~opengross, data=lowOpeners)
 summary(lowOpenModel)
 
 # Plot regression line
-plot(totalgross~opengross, data=lowOpeners)
+plot(totalgross~opengross, data=lowOpeners,
+     main="Low Openers")
 abline(lowOpenModel)
 ```
 
-### Model with only Fall releases
+### Model with only fall releases
 ``` {r}
 # Only take movies that had fall releases
 fallData = subset(modelData, season=="Fall")
@@ -72,15 +125,13 @@ fallModel = lm(totalgross~opengross, data=fallData)
 summary(fallModel)
 
 # Plot regression line
-plot(totalgross~opengross, data=fallData)
+plot(totalgross~opengross, data=fallData,
+     main="Fall Releases")
 abline(fallModel)
 ```
 
 ### Table with prediction from all models
 ``` {r}
-# Get The Marvels opening gross
-theMarvelsOpenGross = data.frame(opengross=(subset(data, title=="The Marvels"))$opengross)
-
 # Predictions for each model
 fullPred = predict(fullModel, newdata = theMarvelsOpenGross)
 lowOpenPred = predict(lowOpenModel, newdata = theMarvelsOpenGross)
@@ -96,3 +147,51 @@ predictionTable <- data.frame(
 # Display the table
 print(predictionTable)
 ```
+
+
+## SLR based on earnings since Nov 12
+``` {r}
+# Data that only contains Nov 12 and later
+sinceNov12 = subset(dailyEarnings, (Date != "Nov 10") & (Date != "Nov 11")) 
+
+# Add column that represents days since Nov 12
+sinceNov12$DaysAfterOpeningWknd = sinceNov12$Day - 3
+
+# Show data
+summary(sinceNov12)
+sinceNov12
+
+# Fit model passed on days since opening weekend
+sinceNov12Model = lm(TotalRevenue~DaysAfterOpeningWknd, data=sinceNov12)
+
+# Summarize model
+summary(sinceNov12Model)
+
+# Convert to millions for easier viewing
+plotData = sinceNov12
+plotData$TotalRevenue = plotData$TotalRevenue / 1000000
+
+# Plot regression line
+milModel = lm(TotalRevenue~DaysAfterOpeningWknd, data=plotData)
+plot(TotalRevenue~DaysAfterOpeningWknd, data=plotData, 
+     yaxp=c(40,70,5), ylim=c(40, 70),
+     main="Revenue Since Opening Weekend", 
+     xlab="Days Since Opening Weekend", ylab="Total Revenue (mil)")
+abline(milModel)
+
+finalPrediction = predict(sinceNov12Model, 
+                          newdata=data.frame(DaysAfterOpeningWknd=c(24)))
+cat("Our prediction based on daily earnings since Nov 12: ", 
+    finalPrediction, "\n")
+```
+
+### Plot with final prediction
+``` {r}
+plot(TotalRevenue~DaysAfterOpeningWknd, data=plotData, 
+     ylim=c(40, 120), xlim=c(0, 25),
+     main="Revenue Since Opening Weekend", 
+     xlab="Days Since Opening Weekend", ylab="Total Revenue (mil)")
+points(x=24,y=finalPrediction/1000000,pch=4, cex=3, lw=4, col="green")
+abline(milModel)
+```
+
