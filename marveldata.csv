@@ -1,34 +1,34 @@
-id,title,totalgross,totaltheaters,opengross,opentheaters,date,distributer,season,production,marketing,ratings
-33,'The Marvels',48483234,4030,46110859,4030,2023-11-10,'Walt Disney Studios Motion Pictures','Fall',270000000,135000000,62
-14,'Guardians of the Galaxy Vol. 3',358995815,4450,118414021,4450,2023-05-05,'Walt Disney Studios Motion Pictures','Spring',250000000,125000000,82
-25,'Ant-Man and the Wasp: Quantumania',214504909,4345,106109650,4345,2023-02-17,'Walt Disney Studios Motion Pictures','Winter',200000000,100000000,46
-7,'Black Panther: Wakanda Forever',453829060,4396,181339761,4396,2022-11-11,'Walt Disney Studios Motion Pictures','Fall',250000000,125000000,83
-15,'Thor: Love and Thunder',343256830,4375,144165107,4375,2022-07-08,'Walt Disney Studios Motion Pictures','Summer',250000000,125000000,63
-9,'Doctor Strange in the Multiverse of Madness',411331607,4534,187420998,4534,2022-05-06,'Walt Disney Studios Motion Pictures','Spring',200000000,100000000,73
-2,'Spider-Man: No Way Home',804793477,4336,260138569,4336,2021-12-17,'Sony Pictures Entertainment (SPE)','Winter',200000000,100000000,93
-31,'Eternals',164870234,4090,71297219,4090,2021-11-05,'Walt Disney Studios Motion Pictures','Fall',236200000,118100000,47
-23,'Shang-Chi and the Legend of the Ten Rings',224543292,4300,75388688,4300,2021-09-03,'Walt Disney Studios Motion Pictures','Fall',150000000,75000000,92
-27,'Black Widow',183651655,4275,80366312,4160,2021-07-09,'Walt Disney Studios Motion Pictures','Summer',200000000,100000000,79
-12,'Spider-Man: Far from Home',390532085,4634,92579212,4634,2019-07-02,'Sony Pictures Entertainment (SPE)','Summer',160000000,80000000,90
-1,'Avengers: Endgame',858373000,4662,357115007,4662,2019-04-26,'Walt Disney Studios Motion Pictures','Spring',400000000,200000000,94
-8,'Captain Marvel',426829839,4310,153433423,4310,2019-03-08,'Walt Disney Studios Motion Pictures','Spring',175000000,87500000,79
-24,'Ant-Man and the Wasp',216648740,4206,75812205,4206,2018-07-06,'Walt Disney Studios Motion Pictures','Summer',130000000,65000000,87
-4,'Avengers: Infinity War',678815482,4474,257698183,4474,2018-04-27,'Walt Disney Studios Motion Pictures','Spring',300000000,150000000,85
-3,'Black Panther',700059566,4084,202003951,4020,2018-02-16,'Walt Disney Studios Motion Pictures','Winter',200000000,100000000,96
-19,'Thor: Ragnarok',315058289,4080,122744989,4080,2017-11-03,'Walt Disney Studios Motion Pictures','Fall',180000000,90000000,93
-16,'Spider-Man: Homecoming',334201140,4348,117027503,4348,2017-07-07,'Sony Pictures Entertainment (SPE)','Summer',175000000,87500000,92
-13,'Guardians of the Galaxy Vol. 2',389813101,4347,146510104,4347,2017-05-05,'Walt Disney Studios Motion Pictures','Spring',200000000,100000000,85
-22,'Doctor Strange',232641920,3882,85058311,3882,2016-11-04,'Walt Disney Studios Motion Pictures','Fall',165000000,82500000,89
-11,'Captain America: Civil War',408084349,4226,179139142,4226,2016-05-06,'Walt Disney Studios Motion Pictures','Spring',250000000,125000000,91
-29,'Ant-Man',180202163,3868,57225526,3856,2015-07-17,'Walt Disney Studios Motion Pictures','Summer',130000000,65000000,83
-6,'Avengers: Age of Ultron',459005868,4276,191271109,4276,2015-05-01,'Walt Disney Studios Motion Pictures','Spring',365000000,182500000,76
-17,'Guardians of the Galaxy',333176600,4088,94320883,4080,2014-08-01,'Walt Disney Studios Motion Pictures','Summer',170000000,85000000,92
-21,'Captain America: The Winter Soldier',259766572,3938,95023721,3938,2014-04-04,'Walt Disney Studios Motion Pictures','Spring',170000000,85000000,90
-26,'Thor: The Dark World',206362140,3841,85737841,3841,2013-11-08,'Walt Disney Studios Motion Pictures','Fall',150000000,75000000,67
-10,'Iron Man 3',409013994,4253,174144585,4253,2013-05-03,'Walt Disney Studios Motion Pictures','Spring',200000000,100000000,79
-5,'The Avengers',623357910,4349,207438708,4349,2012-05-04,'Walt Disney Studios Motion Pictures','Spring',225000000,112500000,91
-30,'Captain America: The First Avenger',176654505,3715,65058524,3715,2011-07-22,'Paramount Pictures','Summer',140000000,70000000,80
-28,'Thor',181030624,3963,65723338,3955,2011-05-06,'Paramount Pictures','Spring',150000000,75000000,77
-20,'Iron Man 2',312433331,4390,128122480,4380,2010-05-07,'Paramount Pictures','Spring',170000000,85000000,72
-32,'The Incredible Hulk',134806913,3508,55414050,3505,2008-06-13,'Universal Pictures','Summer',137500000,68750000,67
-18,'Iron Man',318604126,4154,98618668,4105,2008-05-02,'Paramount Pictures','Spring',186000000,93000000,94
+﻿id,perform,title,totalgross,totaltheaters,opengross,opentheaters,date,distributer,season,production,marketing,ratings
+33,LP,The Marvels,65,4030,46,4030,2023-11-10,Walt Disney Studios Motion Pictures,Fall,270,135,62
+14,HP,Guardians of the Galaxy Vol. 3,359,4450,118,4450,2023-05-05,Walt Disney Studios Motion Pictures,Spring,250,125,82
+25,HP,Ant-Man and the Wasp: Quantumania,215,4345,106,4345,2023-02-17,Walt Disney Studios Motion Pictures,Winter,200,100,46
+7,HP,Black Panther: Wakanda Forever,454,4396,181,4396,2022-11-11,Walt Disney Studios Motion Pictures,Fall,250,125,83
+15,HP,Thor: Love and Thunder,343,4375,144,4375,2022-07-08,Walt Disney Studios Motion Pictures,Summer,250,125,63
+9,HP,Doctor Strange in the Multiverse of Madness,411,4534,187,4534,2022-05-06,Walt Disney Studios Motion Pictures,Spring,200,100,73
+2,HP,Spider-Man: No Way Home,805,4336,260,4336,2021-12-17,Sony Pictures Entertainment (SPE),Winter,200,100,93
+31,LP,Eternals,165,4090,71,4090,2021-11-05,Walt Disney Studios Motion Pictures,Fall,236,118,47
+23,LP,Shang-Chi and the Legend of the Ten Rings,225,4300,75,4300,2021-09-03,Walt Disney Studios Motion Pictures,Fall,150,75,92
+27,LP,Black Widow,184,4275,80,4160,2021-07-09,Walt Disney Studios Motion Pictures,Summer,200,100,79
+12,LP,Spider-Man: Far from Home,391,4634,93,4634,2019-07-02,Sony Pictures Entertainment (SPE),Summer,160,80,90
+1,HP,Avengers: Endgame,858,4662,357,4662,2019-04-26,Walt Disney Studios Motion Pictures,Spring,400,200,94
+8,HP,Captain Marvel,427,4310,153,4310,2019-03-08,Walt Disney Studios Motion Pictures,Spring,175,88,79
+24,LP,Ant-Man and the Wasp,217,4206,76,4206,2018-07-06,Walt Disney Studios Motion Pictures,Summer,130,65,87
+4,HP,Avengers: Infinity War,679,4474,258,4474,2018-04-27,Walt Disney Studios Motion Pictures,Spring,300,150,85
+3,HP,Black Panther,700,4084,202,4020,2018-02-16,Walt Disney Studios Motion Pictures,Winter,200,100,96
+19,HP,Thor: Ragnarok,315,4080,123,4080,2017-11-03,Walt Disney Studios Motion Pictures,Fall,180,90,93
+16,HP,Spider-Man: Homecoming,334,4348,117,4348,2017-07-07,Sony Pictures Entertainment (SPE),Summer,175,88,92
+13,HP,Guardians of the Galaxy Vol. 2,390,4347,147,4347,2017-05-05,Walt Disney Studios Motion Pictures,Spring,200,100,85
+22,LP,Doctor Strange,233,3882,85,3882,2016-11-04,Walt Disney Studios Motion Pictures,Fall,165,83,89
+11,HP,Captain America: Civil War,408,4226,179,4226,2016-05-06,Walt Disney Studios Motion Pictures,Spring,250,125,91
+29,LP,Ant-Man,180,3868,57,3856,2015-07-17,Walt Disney Studios Motion Pictures,Summer,130,65,83
+6,HP,Avengers: Age of Ultron,459,4276,191,4276,2015-05-01,Walt Disney Studios Motion Pictures,Spring,365,183,76
+17,LP,Guardians of the Galaxy,333,4088,94,4080,2014-08-01,Walt Disney Studios Motion Pictures,Summer,170,85,92
+21,LP,Captain America: The Winter Soldier,260,3938,95,3938,2014-04-04,Walt Disney Studios Motion Pictures,Spring,170,85,90
+26,LP,Thor: The Dark World,206,3841,86,3841,2013-11-08,Walt Disney Studios Motion Pictures,Fall,150,75,67
+10,HP,Iron Man 3,409,4253,174,4253,2013-05-03,Walt Disney Studios Motion Pictures,Spring,200,100,79
+5,HP,The Avengers,623,4349,207,4349,2012-05-04,Walt Disney Studios Motion Pictures,Spring,225,113,91
+30,LP,Captain America: The First Avenger,177,3715,65,3715,2011-07-22,Paramount Pictures,Summer,140,70,80
+28,LP,Thor,181,3963,66,3955,2011-05-06,Paramount Pictures,Spring,150,75,77
+20,HP,Iron Man 2,312,4390,128,4380,2010-05-07,Paramount Pictures,Spring,170,85,72
+32,LP,The Incredible Hulk,135,3508,55,3505,2008-06-13,Universal Pictures,Summer,138,69,67
+18,LP,Iron Man,319,4154,99,4105,2008-05-02,Paramount Pictures,Spring,186,93,94
