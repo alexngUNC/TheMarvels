@@ -5,16 +5,16 @@ output:
   pdf_document: default
 ---
 
-Hunter Buresh (), Alex Georgiev (730483404), Zach Richardson ()
+Hunter Buresh (730481420), Alex Georgiev (730483404), Zach Richardson ()
 
 # The Prediction (Required)
-Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is ...
+Our prediction of the cumulative domestic box office of "The Marvels" by December 8, 2023 is $112,545,156
 
 # Summary of Justification (Required) 
-
+Our prediction of 112,545,156 million dollars for the cumulative domestic box office of "The Marvels" by December 8, 2023, was arrived at through the integration of four linear regression models. Initially, we analyzed the historical data of Marvel movies, particularly noting the low opening gross of "The Marvels". We developed three regression models based on this dataset: one considering all movies, another focusing specifically on those with lower opening grosses (< 100 Million), and a third for films released in the fall season. Alongside this, we also incorporated a fourth model based on daily earnings data since November 12. This model was crucial in capturing the real-time market response and audience trends, providing a contemporary perspective to our analysis. Eventually this model proved most accurate in determining the prediction.  We believe this approach, blending historical data patterns with current box office dynamics, makes our 112,545,156 million dollar prediction both robust and reflective of the movie's current trajectory.
 
 # Data (Required)
-We obtained the dataset from: <FILL IN URL HERE>.
+We obtained the dataset from: <https://www.boxofficemojo.com/franchise/fr541495045/>.
 ### Preview of dataset
 ``` {r}
 data <- read.csv("marveldata.csv", quote="'")
@@ -28,7 +28,7 @@ summary(modelData)
 
 
 # Analysis (Required)
-We noticed that the opening gross for The Marvels was only $46 million. Looking at the distrbution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset.
+We noticed that the opening gross for The Marvels was only $46 million. Looking at the distribution of the opening gross of other Marvel movies shows that The Marvels has the lowest opening gross out of all the movies in the dataset.
 ### Distribution of opening gross
 ``` {r}
 openGrossMil <- data$opengross/1000000
@@ -146,5 +146,8 @@ milModel = lm(TotalRevenue~DaysAfterOpeningWknd, data=plotData)
 plot(TotalRevenue~DaysAfterOpeningWknd, data=plotData, yaxp=c(40,70,5), ylim=c(40, 70),
      main="Revenue Since Opening Weekend", xlab="Days Since Opening Weekend", ylab="Total Revenue")
 abline(milModel)
+
+prediction = 45905674+26*2563057
+prediction
 ```
 
